@@ -19,7 +19,7 @@ import colin.com.util.UserServiceImpl;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet(urlPatterns={"/LoginServlet"},loadOnStartup=1)
+@WebServlet(urlPatterns={"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

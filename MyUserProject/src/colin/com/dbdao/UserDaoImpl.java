@@ -14,7 +14,10 @@ import colin.com.bean.User;
 
 public class UserDaoImpl implements UserDao {
 
-	private Connection conn = null;
+	 private Connection conn = null;  
+	    private PreparedStatement ps = null;  
+	    private ResultSet rs = null;  
+	   
 	
 	public UserDaoImpl(java.sql.Statement createStatement) {
 		// TODO 自动生成的构造函数存根
@@ -30,17 +33,17 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void add(User user) {
-			PreparedStatement prepareStatement =null;
+			
 		try {
 			String sql = "INSERT INTO user(username,password,age,sex,power) VALUES(?,?,?,?,?,?,?)";
-			prepareStatement = conn.prepareStatement(sql);
-			prepareStatement.setString(1, user.getUsername());
-			prepareStatement.setString(2, user.getPassword());
-			prepareStatement.setInt(3, user.getAge());
-			prepareStatement.setString(4, user.getSex());
-			prepareStatement.setInt(5, user.getPower());//1为管理员，0为普通用户
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getPassword());
+			ps.setInt(3, user.getAge());
+			ps.setString(4, user.getSex());
+			ps.setInt(5, user.getPower());//1为管理员，0为普通用户
 			
-			int count = prepareStatement.executeUpdate();
+			int count = ps.executeUpdate();
 			if(count > 0){
 				System.out.println("添加成功");
 			}else{
@@ -81,7 +84,7 @@ public class UserDaoImpl implements UserDao {
 			ps.setInt(3, user.getAge());
 			ps.setString(4, user.getSex());
 			ps.setInt(5, user.getPower());//1为管理员，0为普通用户
-			
+		
 			
 			int count = ps.executeUpdate();
 			if(count>0){
@@ -160,7 +163,7 @@ public class UserDaoImpl implements UserDao {
 			User user = new User();
 			if(rs!=null){
 				while(rs.next()){
-					user.setAge(rs.getInt(1));
+					user.setId(rs.getInt(1));
 					user.setUsername(rs.getString(2));
 					user.setPassword(rs.getString(3));
 					user.setAge(rs.getInt(4));
